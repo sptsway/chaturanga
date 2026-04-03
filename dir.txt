@@ -1,0 +1,34 @@
+chaturanga/
+├── src/
+│   ├── main.cpp              # Entry point, UCI loop
+│   ├── types.h               # Common types, enums (Color, Piece, Square, etc.)
+│   │
+│   ├── position/
+│   │   ├── position.h
+│   │   ├── position.cpp
+│   │   └── zobrist.h         # Zobrist hashing keys
+│   │
+│   ├── movegen/
+│   │   ├── movegen.h
+│   │   ├── movegen.cpp
+│   │   └── attacks.h         # Attack tables (sliding pieces, knights, kings, pawns)
+│   │
+│   ├── search/
+│   │   ├── search.h
+│   │   ├── search.cpp
+│   │   └── tt.h              # Transposition table
+│   │
+│   ├── eval/
+│   │   ├── eval.h
+│   │   ├── eval.cpp
+│   │   └── pst.h             # Piece-square tables
+│   │
+│   └── uci/
+│       ├── uci.h
+│       └── uci.cpp
+│
+├── tests/
+│   └── perft.cpp             # Perft testing for move generation correctness
+│
+├── Makefile
+└── README.md
