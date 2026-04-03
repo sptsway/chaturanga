@@ -44,6 +44,8 @@ public:
     uint64_t kings(Color c) const;
     uint64_t occupied(Color c) const;
     uint64_t allOccupied() const;
+    // gets pos given a piece and color
+    uint64_t pieces(Chessman cm, Color c) const;
 
     Color sideToMove() const;
     uint8_t castlingRights() const;
