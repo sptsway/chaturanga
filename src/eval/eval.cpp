@@ -50,7 +50,7 @@ public:
     double score(Board *b) override {
         double white =0, black=0;
 
-        auto countp = [&](uint64_t pos) -> int {
+        auto countp = [](uint64_t pos) -> int {
             int c=0;
             while(pos) {
                 if (pos&1) c++;
