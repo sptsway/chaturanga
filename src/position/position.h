@@ -5,12 +5,12 @@
 #ifndef POSITION_H
 #define POSITION_H
 
-#include <cstdint>
 #include <string>
 
 #include "color.h"
 #include "move.h"
-#include "pieces.h"
+#include "chessman.h"
+#include "piece.h"
 #include "square.h"
 
 using namespace std;
@@ -35,10 +35,10 @@ private:
     uint64_t zobristHash_{};
 
 public:
-    // constructor
+    // --- constructors ---
     Board() = default;
 
-    // Accessors
+    // --- accessors ---
     uint64_t pawns(Color c) const { return pawns_[c];}
     uint64_t knights(Color c) const { return knights_[c];}
     uint64_t bishops(Color c) const { return bishops_[c];}
@@ -47,8 +47,6 @@ public:
     uint64_t kings(Color c) const { return kings_[c];}
     uint64_t occupied(Color c) const { return occupied_[c];}
     uint64_t allOccupied() const { return allOccupied_;}
-    // gets pos given a piece and color
-    uint64_t pieces(Chessman cm, Color c) const;
 
     Color sideToMove() const { return sideToMove_;}
     uint8_t castlingRights() const { return castlingRights_;}
@@ -57,13 +55,21 @@ public:
     uint16_t fullmoveNumber() const { return fullmoveNumber_;}
     uint64_t zobristHash() const { return zobristHash_;}
 
-    // Mutators
+    // --- mutators ---
     void makeMove(Move m);
     void undoMove(Move m);
     void setFromFEN(const std::string& fen);
     void putPiece(Chessman cm, Color c, Square sq);
     void removePiece(Chessman cm, Color c, Square sq);
     void movePiece(Chessman cm, Color c, Square from, Square to);
+
+    // --- helpers ---
+    // gets pos given a piece and color
+    uint64_t pieces(Chessman cm, Color c) const;
+    // is piece located
+    bool isPieceLocated(Chessman cm, Color c, Square sq);
+    // gets piece at position
+    Piece findPiece(Square sq);
 };
 
 #endif //POSITION_H

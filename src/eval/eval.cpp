@@ -59,7 +59,7 @@ public:
             return 0;
         };
 
-        for (Chessman cm: allPieces) {
+        for (Chessman cm: allChessMen) {
             uint64_t wcm = b->pieces(cm, WHITE);
             uint64_t bcm = b->pieces(cm, BLACK);
 
