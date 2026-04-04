@@ -142,3 +142,15 @@ bool Board::isPieceLocated(Chessman cm, Color c, Square sq) {
     }
     return false;
 }
+
+bool Board::hasBlackPiece(Square sq) {
+    if (sq == NO_SQUARE) return false;
+    uint64_t bitsq = 1ULL<<sq;
+    return occupied_[BLACK] & bitsq;
+}
+// if the square has white piece
+bool Board::hasWhitePiece(Square sq) {
+    if (sq == NO_SQUARE) return false;
+    uint64_t bitsq = 1ULL<<sq;
+    return occupied_[WHITE] & bitsq;
+}

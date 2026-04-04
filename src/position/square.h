@@ -18,4 +18,23 @@ enum Square : uint8_t {
     NO_SQUARE = 64
 };
 
+// rank,file :: rowno,columnno
+inline Square make_square(int rank, int file) {
+    if (file < 0 || file >= 8 || rank < 0 || rank >= 8)
+        return NO_SQUARE;
+    return static_cast<Square>(rank * 8 + file);
+}
+
+// rank from square
+inline uint8_t rank_of(Square sq) {
+    return sq/8;
+}
+
+
+// file from square
+inline uint8_t file_of(Square sq) {
+    return sq%8;
+}
+
+
 #endif //SQUARE_H

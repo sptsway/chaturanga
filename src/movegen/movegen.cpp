@@ -3,3 +3,36 @@
 //
 
 #include "movegen.h"
+
+class LegalMoveGenerator : public movegen {
+public:
+    MoveList allMoves(Board* b) override {
+        MoveList ml;
+        Color tomove = b->sideToMove();
+        Color opp = Color(~tomove);
+
+        for (Chessman cm: allChessMen) {
+            uint64_t bpiece = b->pieces(cm, tomove);
+           while (bpiece) {
+               Square from = Square(__builtin_ctzll(bpiece)); // index of lowest set bit
+               MoveList tmpml = this->chessmanMoves(
+                   cm,from,
+                   b->occupied(tomove), b->occupied(opp),
+                   tomove
+               );
+               for (int j=0; j <tmpml.count; j++) ml.add(tmpml[j]);
+               // bpiece-1 -> flips all trailing 0s to 1, and rightmost 1 to 0.
+               bpiece &= bpiece - 1; // clear lowest set bit
+            }
+        }
+        return ml;
+    }
+
+    MoveList capturesOnly(Board* b) override {
+
+    }
+
+    bool isLegal(Board* b, Move m) override {
+        
+    }
+};
