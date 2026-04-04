@@ -53,6 +53,8 @@ void Board::setFromFEN(const std::string& fen) {
 void Board::putPiece(Chessman cm, Color c, Square sq) {
     if (sq == NO_SQUARE) return;
     uint64_t pos = 1ULL<<sq;
+    this->occupied_[c] |= pos;
+    this->allOccupied_ |= pos;
     switch (cm) {
         case PAWN:
             this->pawns_[c] |= pos;
@@ -78,7 +80,9 @@ void Board::putPiece(Chessman cm, Color c, Square sq) {
 
 void Board::removePiece(Chessman cm, Color c, Square sq) {
     if (sq == NO_SQUARE) return;
-    uint64_t pos = UINT64_MAX ^ 1ULL<<sq;
+    uint64_t pos = ~(1ULL<<sq);
+    this->occupied_[c] &= pos;
+    this->allOccupied_ &= pos;
     switch (cm) {
         case PAWN:
             this->pawns_[c] &= pos;

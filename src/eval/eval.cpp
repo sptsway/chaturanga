@@ -50,21 +50,12 @@ public:
     double score(Board *b) override {
         double white =0, black=0;
 
-        auto countp = [](uint64_t pos) -> int {
-            int c=0;
-            while(pos) {
-                if (pos&1) c++;
-                pos>>=1;
-            }
-            return 0;
-        };
-
         for (Chessman cm: allChessMen) {
             uint64_t wcm = b->pieces(cm, WHITE);
             uint64_t bcm = b->pieces(cm, BLACK);
 
-            white += static_cast<float>(countp(wcm)) * this->getValueOfPiece(cm);
-            black += static_cast<float>(countp(bcm)) * this->getValueOfPiece(cm);
+            white += static_cast<float>(__builtin_popcountll(wcm)) * this->getValueOfPiece(cm);
+            black += static_cast<float>(__builtin_popcountll(bcm)) * this->getValueOfPiece(cm);
         }
         return white - black;
     }
