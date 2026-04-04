@@ -4,7 +4,7 @@
 
 #ifndef MOVE_H
 #define MOVE_H
-#include "pieces.h"
+#include "chessman.h"
 #include "square.h"
 
 // Bits layout:

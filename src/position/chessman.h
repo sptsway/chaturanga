@@ -16,7 +16,7 @@ enum Chessman : uint8_t {
     NO_CHESSMAN
 };
 
-const Chessman allPieces[] = {
+const Chessman allChessMen[] = {
     PAWN, KNIGHT, BISHOP, ROOK, QUEEN, KING,
 };
 

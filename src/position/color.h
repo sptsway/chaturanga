@@ -9,7 +9,8 @@
 
 enum Color : uint8_t {
     WHITE = 0,
-    BLACK = 1
+    BLACK = 1,
+    GREY=2, // no_color
 };
 
 
