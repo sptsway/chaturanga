@@ -70,6 +70,10 @@ public:
     bool isPieceLocated(Chessman cm, Color c, Square sq);
     // gets piece at position
     Piece findPiece(Square sq);
+    // if the square has black piece
+    bool hasBlackPiece(Square sq);
+    // if the square has white piece
+    bool hasWhitePiece(Square sq);
 };
 
 #endif //POSITION_H
