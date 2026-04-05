@@ -33,6 +33,16 @@ public:
         return Chessman(((data_ >> 12) & 0x3) + KNIGHT);
     }
 
+    std::string Move::toString() const {
+        std::string s = ::to_string(from()) + ::to_string(to());
+        if (flag() == PROMOTION) {
+            const char promoChars[] = "nbrq";
+            s += promoChars[promotion() - KNIGHT];
+        }
+
+        return s;
+    }
+
     bool operator==(Move other) const { return data_ == other.data_; }
     bool isNull() const { return data_ == 0; }
 
