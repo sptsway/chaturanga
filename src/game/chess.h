@@ -42,12 +42,16 @@ inline void Chess::start(std::istream& in, std::ostream& out) {
     while (true) {
         if (b_->sideToMove() == engineColor_) {
             SearchResult res = s_->getBestMove(b_,mg_,ev_, depth_);
-            if (engineColor_ == WHITE? (res.score < -500) : (res.score > 500) ) {
-                out<<"--- resign ---\n"; break;
-            }
             makeMove(res.bestMove, out);
             b_->makeMove(res.bestMove);
             if (this->print_) b_->print(out);
+            // resign
+            if (engineColor_ == WHITE? (res.score < -500) : (res.score > 500) ) {
+                out<<"--- resign ---\n"; break;
+                // humbly, declare victory
+            }else if (engineColor_ == WHITE? (res.score > 500) : (res.score < -500) ) {
+                out<<"--- gg, but i think you should respectfully resign ---\n";
+            }
         } else {
             Move mv = receiveMove(in);
             b_->makeMove(mv);
