@@ -7,7 +7,7 @@
 #include "movegen/movegen.h"
 #include "movegen/movelist.h"
 
-class MinMaxDFS : search {
+class MinMaxDFS : public search {
 public:
     SearchResult getBestMove(Board *b, movegen *mg, eval *ev, int depth) override {
         if (depth == 0) return SearchResult{

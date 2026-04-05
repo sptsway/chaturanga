@@ -1,8 +1,9 @@
-#include "eval/eval.h"
+#include "eval/piecesvalueeval.h"
 #include "movegen/movegen.h"
-#include "search/search.h"
+#include "movegen/legalmovegen.h"
+#include "search/minmaxdfs.h"
 #include "position/position.h"
-#include "game/game.h"
+#include "game/chess.h"
 
 #include <string>
 #include <cstring>
@@ -58,8 +59,8 @@ signed main(int argc, const char* argv[]) {
     PiecesValueEvaluator ev(evalStyle);
     MinMaxDFS s;
 
-    Game g(&b, &s, &mg, &ev, engineColor, depth);
-    g.start();
+    Chess game = Chess(&b, &s, &mg, &ev, engineColor, depth);
+    game.start();
 
     return 0;
 
