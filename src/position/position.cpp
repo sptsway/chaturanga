@@ -204,7 +204,7 @@ void Board::movePiece(Chessman cm, Color c, Square from, Square to) {
     putPiece(cm, c,to);
 }
 
-Piece Board::findPiece(Square sq) {
+Piece Board::findPiece(Square sq) const {
     if (sq == NO_SQUARE) return NO_PIECE;
     for (Piece p: allPieces) {
         if (isPieceLocated(
@@ -216,7 +216,7 @@ Piece Board::findPiece(Square sq) {
     return NO_PIECE;
 }
 
-bool Board::isPieceLocated(Chessman cm, Color c, Square sq) {
+bool Board::isPieceLocated(Chessman cm, Color c, Square sq) const {
     uint64_t bitsq = 1ULL<<sq;
     switch (cm) {
         case PAWN:
@@ -236,26 +236,29 @@ bool Board::isPieceLocated(Chessman cm, Color c, Square sq) {
     return false;
 }
 
-bool Board::hasBlackPiece(Square sq) {
+// if the square has white piece
+bool Board::hasBlackPiece(Square sq) const {
     if (sq == NO_SQUARE) return false;
     uint64_t bitsq = 1ULL<<sq;
     return occupied_[BLACK] & bitsq;
 }
+
 // if the square has white piece
-bool Board::hasWhitePiece(Square sq) {
+bool Board::hasWhitePiece(Square sq) const {
     if (sq == NO_SQUARE) return false;
     uint64_t bitsq = 1ULL<<sq;
     return occupied_[WHITE] & bitsq;
 }
 
-// if the square has white piece
-bool Board::hasOpponentPiece(Square sq) {
+// if the square has opponent's piece
+bool Board::hasOpponentPiece(Square sq) const {
     if (sq == NO_SQUARE) return false;
     if (this->sideToMove_) return hasWhitePiece(sq);
     return hasBlackPiece(sq);
 }
 
-void Board::print(std::ostream& out) {
+// display board, piece's notation use FEN style
+void Board::print(std::ostream& out) const {
     const char* pieceChars = "PNBRQKpnbrqk";
 
     std::cout << "\n  a b c d e f g h\n";

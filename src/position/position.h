@@ -70,18 +70,18 @@ public:
     // gets pos given a piece and color
     uint64_t pieces(Chessman cm, Color c) const;
     // is piece located
-    bool isPieceLocated(Chessman cm, Color c, Square sq);
+    bool isPieceLocated(Chessman cm, Color c, Square sq) const;
     // gets piece at position
-    Piece findPiece(Square sq);
+    Piece findPiece(Square sq) const;
     // if the square has black piece
-    bool hasBlackPiece(Square sq);
+    bool hasBlackPiece(Square sq) const;
     // if the square has white piece
-    bool hasWhitePiece(Square sq);
+    bool hasWhitePiece(Square sq) const;
     // if the square has white piece
-    bool hasOpponentPiece(Square sq);
+    bool hasOpponentPiece(Square sq) const;
 
     // display
-    void print(std::ostream& out = std::cout);
+    void print(std::ostream& out = std::cout) const;
 };
 
 #endif //POSITION_H
