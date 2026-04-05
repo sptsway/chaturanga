@@ -15,6 +15,8 @@
 
 using namespace std;
 
+constexpr string INIT_BOARD_FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+
 class Board {
 private:
     uint64_t pawns_[2]{};

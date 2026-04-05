@@ -73,6 +73,7 @@ void Board::undoMove(Move m) {
     sideToMove_ = ~sideToMove_;
     if (sideToMove_ == WHITE) fullmoveNumber_ --;
 }
+
 // example FEN: rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1
 // number represents number of vacant squares
 void Board::setFromFEN(const std::string& fen) {
