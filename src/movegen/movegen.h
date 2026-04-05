@@ -61,7 +61,7 @@ inline MoveList movegen::bishopMoves(Square from, uint64_t friendly, uint64_t en
     int dir[4][2]= {{1,1}, {1, -1}, {-1, 1}, {-1,-1}};
     for (const auto &d: dir) {
         for (int i=1;i<8;i++) {
-            if ((to = make_square(rank+i, file+i)) == NO_SQUARE
+            if ((to = make_square(rank+ i*d[0], file+ i*d[1])) == NO_SQUARE
                 || occupied(friendly, to)) break;
             ml.add(Move(from, to));
             if (occupied(enemy, to)) break;
@@ -82,7 +82,7 @@ inline MoveList movegen::rookMoves(Square from, uint64_t friendly, uint64_t enem
     int dir[4][2]= {{0, 1}, {0, -1}, {1, 0}, {-1,0}};
     for (const auto &d: dir) {
         for (int i=1;i<8;i++) {
-            if ((to = make_square(rank+i, file+i)) == NO_SQUARE
+            if ((to = make_square(rank+ i*d[0], file+ i*d[1])) == NO_SQUARE
                 || occupied(friendly, to)) break;
             ml.add(Move(from, to));
             if (occupied(enemy, to)) break;
@@ -152,6 +152,7 @@ inline MoveList movegen::pawnMoves(Square from, uint64_t friendly, uint64_t enem
                 if (twoUp != NO_SQUARE && !isOccupied(twoUp)) {
                     ml.add(Move(from, twoUp));
                 }
+                // std::cout<<to_string(twoUp)<<"xx ";
             }
         }
     }

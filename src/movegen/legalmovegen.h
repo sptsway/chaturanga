@@ -9,6 +9,7 @@ public:
     MoveList allMoves(Board* b) override {
         MoveList ml;
         Color tomove = b->sideToMove();
+        // cout<<(int)tomove<<"@ ";
         Color opp = Color(~tomove);
 
         for (Chessman cm: allChessMen) {
