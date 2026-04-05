@@ -17,9 +17,11 @@ private:
     eval* ev_{};
     Color engineColor_;
     int depth_{};
+    bool print_;
 
 public:
-    Chess(Board* b, ::search* s, movegen* mg, eval* ev, Color userColor, int depth);
+    Chess(Board* b, ::search* s, movegen* mg, eval* ev, Color userColor, int depth, bool print);
+
     void start(std::istream& in = std::cin, std::ostream& out = std::cout) override;
     void makeMove(Move m, std::ostream& out) override;
     Move receiveMove(std::istream& in) override ;
@@ -30,9 +32,9 @@ inline Chess::Chess(Board *b,
                     movegen *mg,
                     eval *ev,
                     Color engineColor,
-                    int depth
-                    ) : b_(b), s_(s), mg_(mg), ev_(ev), engineColor_(engineColor), depth_(depth), game() {
-
+                    int depth,
+                    bool print
+                    ) : game(), b_(b), s_(s), mg_(mg), ev_(ev), engineColor_(engineColor), depth_(depth), print_(print) {
 }
 
 inline void Chess::start(std::istream& in, std::ostream& out) {
@@ -45,6 +47,7 @@ inline void Chess::start(std::istream& in, std::ostream& out) {
             }
             makeMove(res.bestMove, out);
             b_->makeMove(res.bestMove);
+            if (this->print_) b_->print(out);
         } else {
             Move mv = receiveMove(in);
             b_->makeMove(mv);

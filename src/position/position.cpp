@@ -40,15 +40,17 @@ void Board::makeMove(Move m) {
     }else if (m.flag() == EN_PASSANT) {
         movePiece(getChessman(p), getColor(p), m.from(), m.to());
         // captured pawn is behind the destination, hence m.from() is used
-        Square capSq = make_square(file_of(m.to()), rank_of(m.from()));
+        Square capSq = make_square( rank_of(m.from()), file_of(m.to()));
         removePiece(PAWN, ~getColor(p), capSq);
     }else if (m.flag() == CASTLING) {
         movePiece(KING, getColor(p), m.from(), m.to());
         // move the rook too
         if (file_of(m.to()) == 6) { // kingside
-            movePiece(ROOK, getColor(p), make_square(7, rank_of(m.from())), make_square(5, rank_of(m.from())));
+            movePiece(ROOK, getColor(p), make_square(rank_of(m.from()), 7),
+                make_square(rank_of(m.from()), 5));
         } else { // queenside
-            movePiece(ROOK, getColor(p), make_square(0, rank_of(m.from())), make_square(3, rank_of(m.from())));
+            movePiece(ROOK, getColor(p), make_square(rank_of(m.from()), 0),
+                make_square(rank_of(m.from()), 3));
         }
     }else {
         // quiet
@@ -110,7 +112,7 @@ void Board::setFromFEN(const std::string& fen) {
                 case 'k': cm = KING; break;
                 default: file++; continue;
             }
-            putPiece(cm, c, make_square(file, rank));
+            putPiece(cm, c, make_square(rank, file));
             file++;
         }
     }
@@ -135,7 +137,7 @@ void Board::setFromFEN(const std::string& fen) {
     } else {
         int epFile = ep[0] - 'a';
         int epRank = ep[1] - '1';
-        enPassantSquare_ = make_square(epFile, epRank);
+        enPassantSquare_ = make_square(epRank, epFile);
     }
 
     // 5 & 6
@@ -259,7 +261,7 @@ bool Board::hasOpponentPiece(Square sq) const {
 
 // display board, piece's notation use FEN style
 void Board::print(std::ostream& out) const {
-    const char* pieceChars = "PNBRQKpnbrqk";
+    const char* pieceChars = "PpNnBbRrQqKk";
 
     std::cout << "\n  a b c d e f g h\n";
     for (int rank = 7; rank >= 0; rank--) {

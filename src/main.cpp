@@ -18,6 +18,7 @@ void printHelp(const char* program) {
               << "  --depth <int>       Search depth (default: 4)\n"
               << "  --movegen <type>    Move generator: all_legal (default: legal)\n"
               << "  --eval <type>       Evaluation style: simple, kasparov, fisher, stockfish (default: stockfish)\n"
+              << "  --noprint           dont print board after engine's move, default - not present \n"
               << "  --help              Show this help message\n";
 }
 
@@ -27,6 +28,7 @@ signed main(int argc, const char* argv[]) {
     int depth = 4;
     std::string movegenType = "all_legal";
     std::string evalType = "stockfish";
+    bool print = true;
 
     for (int i = 1; i < argc; i++) {
         if (strcmp(argv[i], "--help") == 0) {
@@ -43,6 +45,8 @@ signed main(int argc, const char* argv[]) {
             movegenType = argv[++i];
         } else if (strcmp(argv[i], "--eval") == 0 && i + 1 < argc) {
             evalType = argv[++i];
+        } else if (strcmp(argv[i], "--noprint") == 0) {
+           print = false;
         }
     }
 
@@ -54,12 +58,13 @@ signed main(int argc, const char* argv[]) {
 
     Board b;
     b.setFromFEN(fen);
+    if (print) b.print(std::cout);
 
     LegalMoveGenerator mg;
     PiecesValueEvaluator ev(evalStyle);
     MinMaxDFS s;
 
-    Chess game = Chess(&b, &s, &mg, &ev, engineColor, depth);
+    Chess game = Chess(&b, &s, &mg, &ev, engineColor, depth, print);
     game.start();
 
     return 0;
