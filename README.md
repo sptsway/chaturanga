@@ -57,9 +57,9 @@ Moves are entered in long algebraic notation: `<from><to>[promotion]`
 Human plays white, engine (depth 4, Stockfish eval) plays black:
 
 ```
-  a b c d e f g h        e2e4         a b c d e f g h        d2d4         a b c d e f g h
-8 r n b q k b n r 8      ───►      8 r n b q k b n r 8      ───►      8 r n b q k b n r 8
-7 p p p p p p p p 7     b7b6       7 p . p p p p p p 7     a7a6       7 . . p p p p p p 7
+  a b c d e f g h        e2e4      a b c d e f g h        d2d4        a b c d e f g h
+8 r n b q k b n r 8      ───►     8 r n b q k b n r 8      ───►     8 r n b q k b n r 8
+7 p p p p p p p p 7     b7b6      7 p . p p p p p p 7     a7a6      7 . . p p p p p p 7
 6 . . . . . . . . 6               6 . p . . . . . . 6               6 p p . . . . . . 6
 5 . . . . . . . . 5               5 . . . . . . . . 5               5 . . . . . . . . 5
 4 . . . . . . . . 4               4 . . . . P . . . 4               4 . . . P P . . . 4
@@ -68,12 +68,13 @@ Human plays white, engine (depth 4, Stockfish eval) plays black:
 1 R N B Q K B N R 1               1 R N B Q K B N R 1               1 R N B Q K B N R 1
   a b c d e f g h                   a b c d e f g h                   a b c d e f g h
 
+
        │
        ▼
 
-  a b c d e f g h        g1f3         a b c d e f g h        b2b3         a b c d e f g h
-8 r n b q k b n r 8      ───►      8 r n b q k b n r 8      ───►      8 r n b q k b n r 8
-7 . . p p p p p p 7     a5a4       7 . . p p p p p p 7     a4a3       7 . . p p p p p p 7
+  a b c d e f g h        g1f3       a b c d e f g h        b2b3       a b c d e f g h
+8 r n b q k b n r 8      ───►     8 r n b q k b n r 8      ───►     8 r n b q k b n r 8
+7 . . p p p p p p 7     a5a4      7 . . p p p p p p 7     a4a3      7 . . p p p p p p 7
 6 . p . . . . . . 6               6 . p . . . . . . 6               6 . p . . . . . . 6
 5 p . . . . . . . 5               5 . . . . . . . . 5               5 . . . . . . . . 5
 4 . . . P P . . . 4               4 p . . P P . . . 4               4 . . . P P . . . 4
@@ -85,9 +86,9 @@ Human plays white, engine (depth 4, Stockfish eval) plays black:
        │
        ▼
 
-  a b c d e f g h        b1a3         a b c d e f g h        c1a3         a b c d e f g h
-8 r n b q k b n r 8      ───►      8 r n b q k . n r 8      ───►      8 . n b q k . n r 8
-7 . . p p . p p p 7     f8xa3      7 . . p p . p p p 7     a8xa3      7 . . p p . p p p 7
+  a b c d e f g h        b1a3       a b c d e f g h        c1a3       a b c d e f g h
+8 r n b q k b n r 8      ───►     8 r n b q k . n r 8      ───►     8 . n b q k . n r 8
+7 . . p p . p p p 7     f8xa3     7 . . p p . p p p 7     a8xa3     7 . . p p . p p p 7
 6 . p . . p . . . 6               6 . p . . p . . . 6               6 . p . . p . . . 6
 5 . . . . . . . . 5               5 . . . . . . . . 5               5 . . . . . . . . 5
 4 . . . P P . . . 4               4 . . . P P . . . 4               4 . . . P P . . . 4
