@@ -35,6 +35,7 @@ void Board::makeMove(Move m) {
         getColorFromPiece(p),
         m.from(), m.to()
     );
+    sideToMove_ = ~sideToMove_;
 }
 
 void Board::undoMove(Move m) {
@@ -44,6 +45,7 @@ void Board::undoMove(Move m) {
         getColorFromPiece(p),
         m.to(), m.from()
     );
+    sideToMove_ = ~sideToMove_;
 }
 
 void Board::setFromFEN(const std::string& fen) {
@@ -153,4 +155,11 @@ bool Board::hasWhitePiece(Square sq) {
     if (sq == NO_SQUARE) return false;
     uint64_t bitsq = 1ULL<<sq;
     return occupied_[WHITE] & bitsq;
+}
+
+// if the square has white piece
+bool Board::hasOpponentPiece(Square sq) {
+    if (sq == NO_SQUARE) return false;
+    if (this->sideToMove_) return hasWhitePiece(sq);
+    return hasBlackPiece(sq);
 }

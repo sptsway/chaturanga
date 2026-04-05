@@ -10,8 +10,10 @@
 enum Color : uint8_t {
     WHITE = 0,
     BLACK = 1,
-    GREY=2, // no_color
 };
 
+inline Color operator~(Color c) {
+    return Color(c ^ 1);
+}
 
 #endif //COLOR_H
