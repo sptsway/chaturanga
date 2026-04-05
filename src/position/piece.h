@@ -17,56 +17,14 @@ enum Piece : uint8_t {
     NO_PIECE
 };
 
-inline extern Color getColorFromPiece(Piece p) {
-    switch (p) {
-        case WHITE_PAWN:
-        case WHITE_KNIGHT:
-        case WHITE_BISHOP:
-        case WHITE_ROOK:
-        case WHITE_QUEEN:
-        case WHITE_KING:
-            return WHITE;
-       case BLACK_PAWN:
-       case BLACK_KNIGHT:
-       case BLACK_BISHOP:
-       case BLACK_ROOK:
-       case BLACK_QUEEN:
-       case BLACK_KING:
-            return BLACK;
-        default:;
-    }
+inline extern Color getColor(Piece p) {
+    if (p%2) return BLACK;
     return WHITE;
 }
 
 
-inline extern Chessman getChessManFromPiece(Piece p) {
-    switch (p) {
-        case WHITE_PAWN:
-        case BLACK_PAWN:
-            return PAWN;
-
-        case WHITE_KNIGHT:
-        case BLACK_KNIGHT:
-            return KNIGHT;
-
-        case WHITE_BISHOP:
-        case BLACK_BISHOP:
-            return BISHOP;
-
-        case WHITE_ROOK:
-        case BLACK_ROOK:
-            return ROOK;
-
-        case WHITE_QUEEN:
-        case BLACK_QUEEN:
-            return QUEEN;
-
-        case WHITE_KING:
-        case BLACK_KING:
-            return KING;
-        default:;
-    }
-    return NO_CHESSMAN;
+inline extern Chessman getChessman(Piece p) {
+    return Chessman(p/2);
 }
 
 const Piece allPieces[] = {
