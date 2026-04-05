@@ -4,7 +4,7 @@
 
 #include "position.h"
 #include "piece.h"
-
+#include <sstream>
 
 uint64_t Board::pieces(Chessman cm, Color c) const {
     switch (cm) {
@@ -25,31 +25,121 @@ uint64_t Board::pieces(Chessman cm, Color c) const {
     return 0;
 }
 
-/*
- * doesnt consider special moves, only quiet is considered for time being
- */
+// TODO -> update the castling and enpassant variables
 void Board::makeMove(Move m) {
     Piece p = findPiece(m.from());
-    movePiece(
-        getChessManFromPiece(p),
-        getColorFromPiece(p),
-        m.from(), m.to()
-    );
+    Piece captured = findPiece(m.to());
+    if (captured != NO_PIECE) {
+        removePiece(getChessman(captured), getColor(captured), m.to());
+    }
+
+    if (m.flag() == PROMOTION) {
+        removePiece(getChessman(p), getColor(p), m.from());
+        // remove captured piece if any
+        putPiece(m.promotion(), getColor(p), m.to());
+    }else if (m.flag() == EN_PASSANT) {
+        movePiece(getChessman(p), getColor(p), m.from(), m.to());
+        // captured pawn is behind the destination, hence m.from() is used
+        Square capSq = make_square(file_of(m.to()), rank_of(m.from()));
+        removePiece(PAWN, ~getColor(p), capSq);
+    }else if (m.flag() == CASTLING) {
+        movePiece(KING, getColor(p), m.from(), m.to());
+        // move the rook too
+        if (file_of(m.to()) == 6) { // kingside
+            movePiece(ROOK, getColor(p), make_square(7, rank_of(m.from())), make_square(5, rank_of(m.from())));
+        } else { // queenside
+            movePiece(ROOK, getColor(p), make_square(0, rank_of(m.from())), make_square(3, rank_of(m.from())));
+        }
+    }else {
+        // quiet
+        movePiece(
+            getChessman(p),
+            getColor(p),
+            m.from(), m.to()
+        );
+    }
     sideToMove_ = ~sideToMove_;
+    if (sideToMove_ == WHITE) fullmoveNumber_ ++;
 }
 
+// doesnt handle special undo moves yet
 void Board::undoMove(Move m) {
     Piece p = findPiece(m.to());
     movePiece(
-        getChessManFromPiece(p),
-        getColorFromPiece(p),
+        getChessman(p),
+        getColor(p),
         m.to(), m.from()
     );
     sideToMove_ = ~sideToMove_;
+    if (sideToMove_ == WHITE) fullmoveNumber_ --;
 }
-
+// example FEN: rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1
+// number represents number of vacant squares
 void Board::setFromFEN(const std::string& fen) {
-    // TODO implement me
+    // Clear everything
+    for (Color c: {BLACK, WHITE}) {
+        pawns_[c] = knights_[c] = bishops_[c] = 0;
+        rooks_[c] = queens_[c] = kings_[c] = 0;
+        occupied_[c] = 0;
+    }
+    allOccupied_ = 0;
+
+    std::istringstream ss(fen);
+    std::string pieces, side, castling, ep;
+    int half, full;
+    ss >> pieces >> side >> castling >> ep >> half >> full;
+
+    // 1. Piece placement
+    int rank = 7, file = 0;
+    for (char ch : pieces) {
+        if (ch == '/') {
+            rank--;
+            file = 0;
+        } else if (ch >= '1' && ch <= '8') {
+            file += ch - '0';
+        } else {
+            Color c = isupper(ch) ? WHITE : BLACK;
+            Chessman cm;
+            switch (tolower(ch)) {
+                case 'p': cm = PAWN; break;
+                case 'n': cm = KNIGHT; break;
+                case 'b': cm = BISHOP; break;
+                case 'r': cm = ROOK; break;
+                case 'q': cm = QUEEN; break;
+                case 'k': cm = KING; break;
+                default: file++; continue;
+            }
+            putPiece(cm, c, make_square(file, rank));
+            file++;
+        }
+    }
+
+    // 2. Side to move
+    sideToMove_ = (side == "w") ? WHITE : BLACK;
+
+    // 3. Castling rights
+    castlingRights_ = 0;
+    if (castling != "-") {
+        for (char ch : castling) {
+            if (ch == 'K') castlingRights_ |= 0x1;
+            if (ch == 'Q') castlingRights_ |= 0x2;
+            if (ch == 'k') castlingRights_ |= 0x4;
+            if (ch == 'q') castlingRights_ |= 0x8;
+        }
+    }
+
+    // 4. En passant
+    if (ep == "-") {
+        enPassantSquare_ = NO_SQUARE;
+    } else {
+        int epFile = ep[0] - 'a';
+        int epRank = ep[1] - '1';
+        enPassantSquare_ = make_square(epFile, epRank);
+    }
+
+    // 5 & 6
+    halfmoveClock_ = half;
+    fullmoveNumber_ = full;
 }
 
 void Board::putPiece(Chessman cm, Color c, Square sq) {
@@ -117,8 +207,8 @@ Piece Board::findPiece(Square sq) {
     if (sq == NO_SQUARE) return NO_PIECE;
     for (Piece p: allPieces) {
         if (isPieceLocated(
-            getChessManFromPiece(p),
-            getColorFromPiece(p),
+            getChessman(p),
+            getColor(p),
             sq)
         ) return p;
     }
