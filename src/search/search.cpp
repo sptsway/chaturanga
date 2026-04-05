@@ -4,8 +4,8 @@
 
 #include "search.h"
 
-#include "movegen.h"
-#include "movelist.h"
+#include "movegen/movegen.h"
+#include "movegen/movelist.h"
 
 class MinMaxDFS : search {
 public:

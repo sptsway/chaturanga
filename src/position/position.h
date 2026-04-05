@@ -8,15 +8,15 @@
 #include <iostream>
 #include <string>
 
-#include "color.h"
-#include "move.h"
-#include "chessman.h"
-#include "piece.h"
-#include "square.h"
+#include "position/color.h"
+#include "position/move.h"
+#include "position/chessman.h"
+#include "position/piece.h"
+#include "position/square.h"
 
 using namespace std;
 
-constexpr string INIT_BOARD_FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+constexpr const char*  INIT_BOARD_FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 
 class Board {
 private:

@@ -2,7 +2,7 @@
 // Created by Swaraj Pradhan on 03/04/26.
 //
 
-#include "movegen.h"
+#include "movegen/movegen.h"
 
 class LegalMoveGenerator : public movegen {
 public:

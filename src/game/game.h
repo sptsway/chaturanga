@@ -7,7 +7,7 @@
 #include <iostream>
 #include <string>
 
-#include "move.h"
+#include "position/move.h"
 
 class game {
 public:

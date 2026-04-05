@@ -4,8 +4,8 @@
 
 #ifndef MOVE_H
 #define MOVE_H
-#include "chessman.h"
-#include "square.h"
+#include "position/chessman.h"
+#include "position/square.h"
 
 // Bits layout:
 // 0-5:   from square (0-63)
@@ -33,7 +33,7 @@ public:
         return Chessman(((data_ >> 12) & 0x3) + KNIGHT);
     }
 
-    std::string Move::toString() const {
+    std::string toString() const {
         std::string s = ::to_string(from()) + ::to_string(to());
         if (flag() == PROMOTION) {
             const char promoChars[] = "nbrq";

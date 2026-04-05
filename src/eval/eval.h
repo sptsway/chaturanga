@@ -4,7 +4,7 @@
 
 #ifndef EVAL_H
 #define EVAL_H
-#include "position.h"
+#include "position/position.h"
 
 constexpr double BEST_WHITE_SCORE = 64 * 1000;
 constexpr double BEST_BLACK_SCORE = - 64 * 1000;

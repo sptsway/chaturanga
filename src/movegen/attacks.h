@@ -6,8 +6,8 @@
 #define ATTACKS_H
 #include <cstdint>
 
-#include "color.h"
-#include "square.h"
+#include "position/color.h"
+#include "position/square.h"
 
 inline bool isSquareAttackedByKnight(Square sq, uint64_t enemyKnights) {
     uint8_t rank = rank_of(sq), file = file_of(sq);

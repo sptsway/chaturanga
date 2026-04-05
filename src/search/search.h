@@ -4,8 +4,8 @@
 
 #ifndef SEARCH_H
 #define SEARCH_H
-#include "eval.h"
-#include "move.h"
+#include "eval/eval.h"
+#include "position/move.h"
 
 class movegen;
 class Board;

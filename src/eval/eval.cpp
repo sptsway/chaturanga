@@ -2,11 +2,11 @@
 // Created by Swaraj Pradhan on 03/04/26.
 //
 
-#include "eval.h"
+#include "eval/eval.h"
 
 // source: https://en.wikipedia.org/wiki/Chess_piece_relative_value
 enum  ChessManValuationStyle : uint8_t {
-    Default,
+    Simple,
     GarryKasparov,
     BobbyFisher,
     // https://github.com/official-stockfish/Stockfish/blob/5eeca7392ee90b7a43da69e647e3d596e42992fd/src/types.h#L185
