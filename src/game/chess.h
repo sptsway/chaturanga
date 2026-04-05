@@ -9,33 +9,33 @@
 #include "position/position.h"
 #include "search/search.h"
 
-class Game : public game {
+class Chess : public game {
 private:
     Board* b_{};
-    search::search* s_{};
+    ::search* s_{};
     movegen* mg_{};
     eval* ev_{};
     Color engineColor_;
     int depth_{};
 
 public:
-    Game(Board* b, search::search* s, movegen* mg, eval* ev, Color userColor, int depth);
+    Chess(Board* b, ::search* s, movegen* mg, eval* ev, Color userColor, int depth);
     void start(std::istream& in = std::cin, std::ostream& out = std::cout) override;
     void makeMove(Move m, std::ostream& out) override;
     Move receiveMove(std::istream& in) override ;
 };
 
-Game::Game(Board *b,
-    search::search *s,
-    movegen *mg,
-    eval *ev,
-    Color engineColor,
-    int depth
-) : b_(b), s_(s), mg_(mg), ev_(ev), engineColor_(engineColor), depth_(depth), game() {
+inline Chess::Chess(Board *b,
+                    ::search *s,
+                    movegen *mg,
+                    eval *ev,
+                    Color engineColor,
+                    int depth
+                    ) : b_(b), s_(s), mg_(mg), ev_(ev), engineColor_(engineColor), depth_(depth), game() {
 
 }
 
-void Game::start(std::istream& in, std::ostream& out) {
+inline void Chess::start(std::istream& in, std::ostream& out) {
     // game begins ...
     while (true) {
         if (b_->sideToMove() == engineColor_) {
@@ -52,11 +52,11 @@ void Game::start(std::istream& in, std::ostream& out) {
     }
 }
 
-void Game::makeMove(Move m, std::ostream& out) {
+inline void Chess::makeMove(Move m, std::ostream& out) {
     out<<m.toString()<<endl;
 }
 
-Move Game::receiveMove(std::istream& in) {
+inline Move Chess::receiveMove(std::istream& in) {
     // TODO -> validate user's move
     string move;
     in>>move;

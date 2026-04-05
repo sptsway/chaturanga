@@ -16,8 +16,9 @@ public:
     // Tells score from the board
     // +ve -> white is winning
     // -ve -> black is winning
+    eval()= default;
     virtual double score(Board *b) = 0;
-    virtual ~eval();
+    virtual ~eval() = default;
 };
 
 

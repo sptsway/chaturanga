@@ -11,13 +11,13 @@ include_directories(src/search)
 include_directories(src/uci)
 
 add_executable(chaturanga
-        src/eval/eval.cpp
+        src/eval/piecesvalueeval.h
         src/eval/eval.h
-        src/movegen/movegen.cpp
+        src/movegen/legalmovegen.h
         src/movegen/movegen.h
         src/position/position.cpp
         src/position/position.h
-        src/search/search.cpp
+        src/search/minmaxdfs.h
         src/search/search.h
         src/uci/uci.cpp
         src/uci/uci.h
@@ -33,7 +33,7 @@ add_executable(chaturanga
         src/position/piece.h
         src/movegen/movelist.h
         src/movegen/attacks.h
-        src/game/game.cpp
+        src/game/chess.h
         src/game/game.h
 )
 

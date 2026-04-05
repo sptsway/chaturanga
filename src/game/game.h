@@ -11,12 +11,12 @@
 
 class game {
 public:
+    game() = default;
     virtual ~game() = default;
 
-    game();
     virtual void start(std::istream& in, std::ostream& out) =0;
-    virtual void makeMove(Move m, std::ostream& out);
-    virtual Move receiveMove(std::istream& in);
+    virtual void makeMove(Move m, std::ostream& out) =0;
+    virtual Move receiveMove(std::istream& in) =0;
     static Move parseUserMove(const std::string& input);
 };
 

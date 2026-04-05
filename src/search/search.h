@@ -4,11 +4,9 @@
 
 #ifndef SEARCH_H
 #define SEARCH_H
+#include "movegen/movegen.h"
 #include "eval/eval.h"
 #include "position/move.h"
-
-class movegen;
-class Board;
 
 struct SearchResult {
     Move bestMove;
