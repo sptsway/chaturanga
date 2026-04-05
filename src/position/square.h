@@ -30,10 +30,16 @@ inline uint8_t rank_of(Square sq) {
     return sq/8;
 }
 
-
 // file from square
 inline uint8_t file_of(Square sq) {
     return sq%8;
+}
+
+// file from square
+inline std::string to_string(Square sq) {
+    char file = 'a' + file_of(sq);
+    char rank = '1' + rank_of(sq);
+    return {file, rank};
 }
 
 

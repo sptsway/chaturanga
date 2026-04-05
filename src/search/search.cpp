@@ -8,6 +8,7 @@
 #include "movelist.h"
 
 class MinMaxDFS : search {
+public:
     SearchResult getBestMove(Board *b, movegen *mg, eval *ev, int depth) override {
         if (depth == 0) return SearchResult{
             .bestMove = Move(),
