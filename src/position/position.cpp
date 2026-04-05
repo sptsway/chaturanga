@@ -154,3 +154,10 @@ bool Board::hasWhitePiece(Square sq) {
     uint64_t bitsq = 1ULL<<sq;
     return occupied_[WHITE] & bitsq;
 }
+
+// if the square has white piece
+bool Board::hasOpponentPiece(Square sq) {
+    if (sq == NO_SQUARE) return false;
+    if (this->sideToMove_) return hasWhitePiece(sq);
+    return hasBlackPiece(sq);
+}

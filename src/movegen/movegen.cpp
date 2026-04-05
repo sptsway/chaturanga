@@ -29,10 +29,17 @@ public:
     }
 
     MoveList capturesOnly(Board* b) override {
+        MoveList mvall = this->allMoves(b), mvcap;
 
+        for (int i=0; i<mvall.count; i++) {
+            Move mv = mvall[i];
+            if (b->hasOpponentPiece(mv.to())) mvcap.add(mv);
+        }
+
+        return mvcap;
     }
 
     bool isLegal(Board* b, Move m) override {
-        
+
     }
 };

@@ -74,6 +74,8 @@ public:
     bool hasBlackPiece(Square sq);
     // if the square has white piece
     bool hasWhitePiece(Square sq);
+    // if the square has white piece
+    bool hasOpponentPiece(Square sq);
 };
 
 #endif //POSITION_H

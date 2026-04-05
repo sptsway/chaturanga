@@ -19,12 +19,13 @@ public:
     virtual bool isLegal(Board* b, Move m) = 0;
 protected:
     static MoveList knightMoves(Square from, uint64_t friendly, uint64_t enemy);
-    MoveList bishopMoves(Square from, uint64_t friendly, uint64_t enemy);
-    MoveList rookMoves(Square from, uint64_t friendly, uint64_t enemy);
-    MoveList queenMoves(Square from, uint64_t friendly, uint64_t enemy);
-    MoveList kingMoves(Square from, uint64_t friendly, uint64_t enemy);
-    MoveList pawnMoves(Square from, uint64_t friendly, uint64_t enemy, Color side);
-    MoveList chessmanMoves(Chessman cm, Square from, uint64_t friendly, uint64_t enemy, Color side);
+    static MoveList bishopMoves(Square from, uint64_t friendly, uint64_t enemy);
+    static MoveList rookMoves(Square from, uint64_t friendly, uint64_t enemy);
+    static MoveList queenMoves(Square from, uint64_t friendly, uint64_t enemy);
+    static MoveList kingMoves(Square from, uint64_t friendly, uint64_t enemy);
+    static MoveList pawnMoves(Square from, uint64_t friendly, uint64_t enemy, Color side);
+    static MoveList chessmanMoves(Chessman cm, Square from, uint64_t friendly, uint64_t enemy, Color side);
+    static bool isKingInCheck(Board* b, Color c);
 };
 
 inline MoveList movegen::knightMoves(Square from, uint64_t friendly, uint64_t enemy) {
@@ -56,23 +57,14 @@ inline MoveList movegen::bishopMoves(Square from, uint64_t friendly, uint64_t en
     };
     MoveList ml;
     Square to;
-    for (int i=1;i<8;i++) {
-        if ((to = make_square(rank+i, file+i)) == NO_SQUARE || occupied(friendly, to)) break;
-        ml.add(Move(from, to));
-        if (occupied(enemy, to)) break;
-    } for (int i=1;i<8;i++) {
-        if ((to = make_square(rank-i, file-i)) == NO_SQUARE || occupied(friendly, to)) break;
-        ml.add(Move(from, to));
-        if (occupied(enemy, to)) break;
-    }
-    for (int i=1;i<8;i++) {
-        if ((to = make_square(rank+i, file-i)) == NO_SQUARE || occupied(friendly, to)) break;
-        ml.add(Move(from, to));
-        if (occupied(enemy, to)) break;
-    } for (int i=1;i<8;i++) {
-        if ((to = make_square(rank-i, file+i)) == NO_SQUARE || occupied(friendly, to)) break;
-        ml.add(Move(from, to));
-        if (occupied(enemy, to)) break;
+    int dir[4][2]= {{1,1}, {1, -1}, {-1, 1}, {-1,-1}};
+    for (const auto &d: dir) {
+        for (int i=1;i<8;i++) {
+            if ((to = make_square(rank+i, file+i)) == NO_SQUARE
+                || occupied(friendly, to)) break;
+            ml.add(Move(from, to));
+            if (occupied(enemy, to)) break;
+        }
     }
 
     return ml;
@@ -86,25 +78,15 @@ inline MoveList movegen::rookMoves(Square from, uint64_t friendly, uint64_t enem
     };
     MoveList ml;
     Square to;
-    for (int i=1;i<8;i++) {
-        if ((to = make_square(rank+i, file)) == NO_SQUARE || occupied(friendly,to)) break;
-        ml.add(Move(from, to));
-        if (occupied(enemy, to)) break;
-    } for (int i=1;i<8;i++) {
-        if ((to = make_square(rank-i, file)) == NO_SQUARE || occupied(friendly,to)) break;
-        ml.add(Move(from, to));
-        if (occupied(enemy, to)) break;
+    int dir[4][2]= {{0, 1}, {0, -1}, {1, 0}, {-1,0}};
+    for (const auto &d: dir) {
+        for (int i=1;i<8;i++) {
+            if ((to = make_square(rank+i, file+i)) == NO_SQUARE
+                || occupied(friendly, to)) break;
+            ml.add(Move(from, to));
+            if (occupied(enemy, to)) break;
+        }
     }
-    for (int i=1;i<8;i++) {
-        if ((to = make_square(rank, file+i)) == NO_SQUARE || occupied(friendly,to)) break;
-        ml.add(Move(from, to));
-        if (occupied(enemy, to)) break;
-    } for (int i=1;i<8;i++) {
-        if ((to = make_square(rank, file-i)) == NO_SQUARE || occupied(friendly,to)) break;
-        ml.add(Move(from, to));
-        if (occupied(enemy, to)) break;
-    }
-
     return ml;
 }
 
@@ -211,6 +193,10 @@ inline MoveList movegen::chessmanMoves(Chessman cm, Square from, uint64_t friend
         default: ;
     }
     return {};
+}
+
+inline bool movegen::isKingInCheck(Board *b, Color c) {
+    return false;
 }
 
 

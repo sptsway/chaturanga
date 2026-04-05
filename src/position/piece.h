@@ -35,7 +35,7 @@ inline extern Color getColorFromPiece(Piece p) {
             return BLACK;
         default:;
     }
-    return GREY;
+    return WHITE;
 }
 
 
