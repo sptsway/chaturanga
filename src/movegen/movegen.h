@@ -6,6 +6,7 @@
 #define MOVEGEN_H
 #include <functional>
 
+#include "attacks.h"
 #include "move.h"
 #include "movelist.h"
 #include "position.h"
@@ -196,7 +197,16 @@ inline MoveList movegen::chessmanMoves(Chessman cm, Square from, uint64_t friend
 }
 
 inline bool movegen::isKingInCheck(Board *b, Color c) {
-    return false;
+    Square kingSq = Square(__builtin_ctzll(b->kings(c)));
+    Color enemy = ~c;
+    uint64_t occ = b->allOccupied();
+
+    return isSquareAttackedByPawn(kingSq, b->pawns(enemy), enemy)
+        || isSquareAttackedByKnight(kingSq, b->knights(enemy))
+        || isSquareAttackedByBishop(kingSq, b->bishops(enemy), occ)
+        || isSquareAttackedByRook(kingSq, b->rooks(enemy), occ)
+        || isSquareAttackedByQueen(kingSq, b->queens(enemy), occ)
+        || isSquareAttackedByKing(kingSq, b->kings(enemy));
 }
 
 

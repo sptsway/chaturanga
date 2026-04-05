@@ -35,6 +35,7 @@ void Board::makeMove(Move m) {
         getColorFromPiece(p),
         m.from(), m.to()
     );
+    sideToMove_ = ~sideToMove_;
 }
 
 void Board::undoMove(Move m) {
@@ -44,6 +45,7 @@ void Board::undoMove(Move m) {
         getColorFromPiece(p),
         m.to(), m.from()
     );
+    sideToMove_ = ~sideToMove_;
 }
 
 void Board::setFromFEN(const std::string& fen) {

@@ -20,10 +20,15 @@ public:
                    b->occupied(tomove), b->occupied(opp),
                    tomove
                );
-               for (int j=0; j <tmpml.count; j++) ml.add(tmpml[j]);
+               for (int j=0; j <tmpml.count; j++) {
+                   // TODO optimise
+                   // current it iterate over pieces' moves again
+                   // a better optimisation is to store the state of the isKingInCheck somewhere in board
+                   if (isLegal(b,tmpml[j])) ml.add(tmpml[j]);
+               }
                // bpiece-1 -> flips all trailing 0s to 1, and rightmost 1 to 0.
                bpiece &= bpiece - 1; // clear lowest set bit
-            }
+           }
         }
         return ml;
     }
@@ -40,6 +45,8 @@ public:
     }
 
     bool isLegal(Board* b, Move m) override {
-
+        Board copy = *b;
+        copy.makeMove(m);
+        return !isKingInCheck(&copy, b->sideToMove());
     }
 };
