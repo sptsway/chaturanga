@@ -6,6 +6,10 @@
 #define EVAL_H
 #include "position.h"
 
+constexpr double BEST_WHITE_SCORE = 64 * 1000;
+constexpr double BEST_BLACK_SCORE = - 64 * 1000;
+constexpr double WORST_WHITE_SCORE = - 64 * 1000;
+constexpr double WORST_BLACK_SCORE = 64 * 1000;
 
 class eval {
 public:
