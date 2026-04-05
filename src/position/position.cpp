@@ -254,3 +254,23 @@ bool Board::hasOpponentPiece(Square sq) {
     if (this->sideToMove_) return hasWhitePiece(sq);
     return hasBlackPiece(sq);
 }
+
+void Board::print(std::ostream& out) {
+    const char* pieceChars = "PNBRQKpnbrqk";
+
+    std::cout << "\n  a b c d e f g h\n";
+    for (int rank = 7; rank >= 0; rank--) {
+        std::cout << (rank + 1) << " ";
+        for (int file = 0; file < 8; file++) {
+            Square sq = make_square(rank, file);
+            Piece p = this->findPiece(sq);
+            if (p == NO_PIECE) {
+                out << ". ";
+            } else {
+                out << pieceChars[p] << " ";
+            }
+        }
+        std::cout << (rank + 1) << "\n";
+    }
+    std::cout << "  a b c d e f g h\n\n";
+}

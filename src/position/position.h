@@ -5,6 +5,7 @@
 #ifndef POSITION_H
 #define POSITION_H
 
+#include <iostream>
 #include <string>
 
 #include "color.h"
@@ -78,6 +79,9 @@ public:
     bool hasWhitePiece(Square sq);
     // if the square has white piece
     bool hasOpponentPiece(Square sq);
+
+    // display
+    void print(std::ostream& out = std::cout);
 };
 
 #endif //POSITION_H
