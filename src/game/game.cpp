@@ -2,14 +2,14 @@
 // Created by Swaraj Pradhan on 05/04/26.
 //
 
-#include "game.h"
+#include "game/game.h"
 
-#include "eval.h"
-#include "movegen.h"
-#include "position.h"
-#include "search.h"
+#include "eval/eval.h"
+#include "movegen/movegen.h"
+#include "position/position.h"
+#include "search/search.h"
 
-class Game : game {
+class Game : public game {
 private:
     Board* b_{};
     search::search* s_{};

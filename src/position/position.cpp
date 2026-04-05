@@ -2,8 +2,8 @@
 // Created by Swaraj Pradhan on 03/04/26.
 //
 
-#include "position.h"
-#include "piece.h"
+#include "position/position.h"
+#include "position/piece.h"
 #include <sstream>
 
 uint64_t Board::pieces(Chessman cm, Color c) const {

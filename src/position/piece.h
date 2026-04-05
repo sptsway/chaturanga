@@ -4,7 +4,7 @@
 
 #ifndef PIECE_H
 #define PIECE_H
-#include "color.h"
+#include "position/color.h"
 
 
 enum Piece : uint8_t {

@@ -4,7 +4,7 @@
 
 #ifndef MOVELIST_H
 #define MOVELIST_H
-#include "move.h"
+#include "position/move.h"
 
 struct MoveList {
     Move moves[256];

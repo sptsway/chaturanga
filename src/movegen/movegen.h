@@ -6,10 +6,10 @@
 #define MOVEGEN_H
 #include <functional>
 
-#include "attacks.h"
-#include "move.h"
-#include "movelist.h"
-#include "position.h"
+#include "movegen/attacks.h"
+#include "position/move.h"
+#include "movegen/movelist.h"
+#include "position/position.h"
 
 class movegen {
 public:
