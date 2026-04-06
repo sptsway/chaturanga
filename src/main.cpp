@@ -7,6 +7,8 @@
 
 #include <string>
 #include <cstring>
+#include <sstream>
+#include "uci/uci.h"
 
 using namespace std;
 
@@ -18,6 +20,7 @@ void printHelp(const char* program) {
               << "  --depth <int>       Search depth (default: 4)\n"
               << "  --movegen <type>    Move generator: all_legal (default: legal)\n"
               << "  --eval <type>       Evaluation style: simple, kasparov, fisher, stockfish (default: stockfish)\n"
+              << "  --game <type>       cli game / uci game, default - cli \n"
               << "  --noprint           dont print board after engine's move, default - not present \n"
               << "  --help              Show this help message\n";
 }
@@ -28,6 +31,7 @@ signed main(int argc, const char* argv[]) {
     int depth = 4;
     std::string movegenType = "all_legal";
     std::string evalType = "stockfish";
+    string gametype = "cli";
     bool print = true;
 
     for (int i = 1; i < argc; i++) {
@@ -45,6 +49,8 @@ signed main(int argc, const char* argv[]) {
             movegenType = argv[++i];
         } else if (strcmp(argv[i], "--eval") == 0 && i + 1 < argc) {
             evalType = argv[++i];
+        }  else if (strcmp(argv[i], "--game") == 0 && i + 1 < argc) {
+            gametype = argv[++i];
         } else if (strcmp(argv[i], "--noprint") == 0) {
            print = false;
         }
@@ -56,18 +62,19 @@ signed main(int argc, const char* argv[]) {
     else if (evalType == "kasparov") evalStyle = GarryKasparov;
     else if (evalType == "fisher") evalStyle = BobbyFisher;
 
-    Board b;
-    b.setFromFEN(fen);
-    if (print) b.print(std::cout);
-
     LegalMoveGenerator mg;
     PiecesValueEvaluator ev(evalStyle);
     MinMaxDFS s;
+    game *game;
+    if (gametype == "uci") {
+        Board b;
+        game = new UCI(&b, &s, &mg, &ev, depth);
+    } else {
+        Board b; b.setFromFEN(fen);
+        game = new Chess(&b, &s, &mg, &ev, engineColor, depth, print);
+    }
+    game->start(cin, cout);
 
-    Chess game = Chess(&b, &s, &mg, &ev, engineColor, depth, print);
-    game.start();
-
-    return 0;
 
     return 0;
 }

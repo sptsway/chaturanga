@@ -49,13 +49,14 @@ make
 
 ### Options
 
-| Flag | Description | Default |
-|------|-------------|---------|
-| `--color <w\|b>` | Engine plays as white or black | `b` |
-| `--depth <int>` | Search depth | `4` |
-| `--eval <type>` | Evaluation: `simple`, `kasparov`, `fisher`, `stockfish` | `stockfish` |
-| `--fen <string>` | Starting position in FEN notation | Standard starting position |
-| `--help` | Show help message | |
+| Flag                | Description                                             | Default                    |
+|---------------------|---------------------------------------------------------|----------------------------|
+| `--color <w\|b>`    | Engine plays as white or black                          | `b`                        |
+| `--depth <int>`     | Search depth                                            | `4`                        |
+| `--eval <type>`     | Evaluation: `simple`, `kasparov`, `fisher`, `stockfish` | `stockfish`                |
+| `--fen <string>`    | Starting position in FEN notation                       | Standard starting position |
+| `--game <uci\|cli>` | Play via UCI-compatible GUI or interactive CLI          | `cli`                      |
+| `--help`            | Show help message                                       |                            |
 
 ### Example
 

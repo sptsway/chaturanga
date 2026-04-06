@@ -38,6 +38,7 @@ inline Chess::Chess(Board *b,
 }
 
 inline void Chess::start(std::istream& in, std::ostream& out) {
+    if (this->print_) b_->print(out);
     // game begins ...
     while (true) {
         if (b_->sideToMove() == engineColor_) {
