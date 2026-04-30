@@ -110,7 +110,7 @@ src/
 - [ ] Opening book
 
 ### Infrastructure
-- [ ] UCI protocol support (CuteChess / SCID integration)
+- [x] UCI protocol support (CuteChess / SCID integration)
 - [ ] Perft testing for move generation correctness
 - [ ] FEN import/export
 
